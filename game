@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Check if at least one argument was provided
+if [ "$#" -eq 0 ]; then
+    echo "Please provide a some argument"
+    exit 1
+fi
+
+# Store the primary argument
+primary_arg="$1"
+shift  # Shift the arguments to remove the primary one
+
+# Process the primary argument
+case $primary_arg in
+    on)
+        sudo apt install -y aptitude
+        sudo aptitude install -y libgd3:i386
+        sudo apt install -y wine32
+        ;;
+    off)
+        sudo apt install -y aptitude
+        sudo aptitude install -y libgd3
+        sudo apt install -y ubuntu-desktop
+        ;;
+    imperium)
+    	cd "/home/brayand/.wine/drive_c/Games/Imperivm RTC - HD Edition - GBoR"
+        wine gbr.exe
+    	;;
+    help)
+        # If the primary argument is 'help'
+        echo "Usage: game [options]"
+        echo ""
+        echo "Options:"
+        echo "  on           Install the game dependencies"
+        echo "  off          Uninstall the game dependencies"
+        echo "  imperium     Run the game Imperivm RTC - HD Edition - GBoR"
+        echo "  help         Show this help message"
+        ;;
+    *)
+        echo "Incorrect argument"
+        ;;
+esac
